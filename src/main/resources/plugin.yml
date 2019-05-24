@@ -1,0 +1,22 @@
+main: com.gmail.ak1cec0ld.plugins.pokemonids.PokemonIDs
+name: PokemonIDs
+api-version: 1.13
+version: 2.0.0
+author: 1cec0ld
+description: No Description
+prefix: PIDs
+commands:
+  fly:
+    description: Helps you fly.
+  badges:
+    description: Helps manage your badges.
+  pokemonids:
+    description: Manages PokemonIDs the plugin
+  houses:
+    description: Show the Key and List all houses.
+  wild:
+    description: Bring you to your wild location, unique to you.
+  spawn:
+    description: Bring yourself or others to the start of their region.
+  pvp:
+    description: Brings you to a location known to cause Player Vs Player combat
