@@ -1,10 +1,12 @@
-package com.gmail.ak1cec0ld.plugins.pokemobmoney.file;
+package com.gmail.ak1cec0ld.plugins.pokemobmoney.files;
 
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.PokeMobMoney;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 
 import java.io.File;
+import java.util.List;
+import java.util.Set;
 
 public class Config {
     private static CustomYMLStorage yml;
@@ -17,11 +19,33 @@ public class Config {
     }
 
     public static double getBasePay(EntityType entityType){
+        if(storage.contains("mobs."+entityType.name().toUpperCase())){
+            return storage.getDouble("mobs."+entityType.name().toUpperCase(),0.0);
+        }
+        PokeMobMoney.debug("Unhandled Mob EntityType for mob money: "+entityType.name());
         return 0.0;
     }
-    public static boolean isNoPay(String regionName){
-
-        return false;
+    public static List<String> getNoPayRegions(){
+        return storage.getStringList("nopay");
     }
-
+    public static double getRandomizer(){
+        return storage.getDouble("randomizer",0.0);
+    }
+    public static double getPermissionMultiplier(String permission){
+        return storage.getDouble("permissions."+permission.toLowerCase(),1.0);
+    }
+    public static Set<String> getPermissionSet(){
+        return storage.getConfigurationSection("permissions").getKeys(false);
+    }
+    public static double getSpecialCaseMultiplier(String spCase){
+        if(storage.contains("specialcase."+spCase)){
+            return storage.getDouble("specialcase."+spCase);
+        }
+        PokeMobMoney.debug("Attempted to get Special Case and failed: "+spCase);
+        return 1.0;
+    }
+    public static void reload(){
+        yml.reload();
+        storage = yml.getYamlConfiguration();
+    }
 }

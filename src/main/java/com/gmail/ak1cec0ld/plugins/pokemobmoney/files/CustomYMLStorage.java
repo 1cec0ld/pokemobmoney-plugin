@@ -1,4 +1,4 @@
-package com.gmail.ak1cec0ld.plugins.pokemobmoney.file;
+package com.gmail.ak1cec0ld.plugins.pokemobmoney.files;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
