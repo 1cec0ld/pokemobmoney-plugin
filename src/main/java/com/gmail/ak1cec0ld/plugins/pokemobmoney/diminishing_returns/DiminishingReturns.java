@@ -40,7 +40,9 @@ public class DiminishingReturns {
     public static double getMultiplier(Player player, Entity entity){
         long time = System.currentTimeMillis();
         HashMap<EntityType,Set<Long>> playerEntities = storage.get(player.getName());
+        if(playerEntities == null)return 1.0;
         Set<Long> entityEntries = playerEntities.get(entity.getType());
+        if(entityEntries == null) return 1.0;
         for(long each : entityEntries){
             if(time-each > MINUTES_BEFORE_DIMINISH*60*1000)
             entityEntries.remove(each);
