@@ -6,5 +6,5 @@ author: 1cec0ld
 description: No Description
 prefix: PMM
 commands:
-  togglemoneymessages:
+  moneymessages:
     description: Change between seeing money notices in Chat vs Action Bar

@@ -10,7 +10,7 @@ public class PlayerFile {
     private static YamlConfiguration storage;
 
     public PlayerFile(){
-        yml = new CustomYMLStorage(PokeMobMoney.instance(),"PokeMobMoney"+ File.separator+"config.yml");
+        yml = new CustomYMLStorage(PokeMobMoney.instance(),"PokeMobMoney"+ File.separator+"playerFile.yml");
         storage = yml.getYamlConfiguration();
         yml.save();
     }

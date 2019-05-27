@@ -1,6 +1,7 @@
 package com.gmail.ak1cec0ld.plugins.pokemobmoney.listeners;
 
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.PokeMobMoney;
+import com.gmail.ak1cec0ld.plugins.pokemobmoney.diminishing_returns.DiminishingReturns;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.Config;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.PlayerFile;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
@@ -41,13 +42,14 @@ public class Death implements Listener {
         double permissionMultiplier = getPermissionMultiplier(attacker);
         double specialMultiplier = getSpecialCaseMultiplier(target);
         double randomizer = Config.getRandomizer();
+        double diminishedMultiplier = DiminishingReturns.getMultiplier(attacker, target);
         double randomMultiplier = r.nextDouble()*2*randomizer + 1 - randomizer;
 
-        double payment = basePay * permissionMultiplier * specialMultiplier * randomMultiplier;
+        double payment = basePay * permissionMultiplier * specialMultiplier * randomMultiplier * diminishedMultiplier;
         if(payment <= 0)return;
 
         payPlayer(attacker, payment, target);
-
+        DiminishingReturns.addEntry(attacker, target);
     }
 
     private void payPlayer(Player payee, double payment, Entity target){

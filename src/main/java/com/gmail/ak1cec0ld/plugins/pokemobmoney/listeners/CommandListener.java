@@ -1,5 +1,6 @@
 package com.gmail.ak1cec0ld.plugins.pokemobmoney.listeners;
 
+import com.gmail.ak1cec0ld.plugins.pokemobmoney.diminishing_returns.DiminishingReturns;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.Config;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.PlayerFile;
 import org.bukkit.command.Command;
@@ -19,6 +20,7 @@ public class CommandListener implements CommandExecutor {
             }
             if(strings.length == 1){
                 Config.reload();
+                DiminishingReturns.reload();
             }
         }
         return false;

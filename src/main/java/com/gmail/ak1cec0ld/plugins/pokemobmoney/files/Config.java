@@ -44,6 +44,15 @@ public class Config {
         PokeMobMoney.debug("Attempted to get Special Case and failed: "+spCase);
         return 1.0;
     }
+    public static int getMinutesBeforeDiminish(){
+        return storage.getInt("diminishing-returns.minutes-before-triggered",1);
+    }
+    public static int getEntityCountBeforeDiminish(){
+        return storage.getInt("diminishing-returns.killed-entities-before-triggered",10);
+    }
+    public static double getMinimumPercentMultiplier(){
+        return storage.getDouble("diminishing-returns.minimum-multiplier-allowed",0.01);
+    }
     public static void reload(){
         yml.reload();
         storage = yml.getYamlConfiguration();

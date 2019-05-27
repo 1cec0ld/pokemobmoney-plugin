@@ -1,5 +1,6 @@
 package com.gmail.ak1cec0ld.plugins.pokemobmoney;
 
+import com.gmail.ak1cec0ld.plugins.pokemobmoney.diminishing_returns.DiminishingReturns;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.Config;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.files.PlayerFile;
 import com.gmail.ak1cec0ld.plugins.pokemobmoney.listeners.CommandListener;
@@ -34,7 +35,8 @@ public class PokeMobMoney extends JavaPlugin {
 
         new Config();
         new PlayerFile();
-        getServer().getPluginCommand("togglemoneymessages").setExecutor(new CommandListener());
+        new DiminishingReturns();
+        getServer().getPluginCommand("moneymessages").setExecutor(new CommandListener());
         new Death();
 
 
