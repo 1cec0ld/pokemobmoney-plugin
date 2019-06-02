@@ -30,6 +30,7 @@ public class PokeMobMoney extends JavaPlugin {
         if(!setupEconomy()){
             debug("No Vault found! Disabling PokeMobMoney!");
             instance.getPluginLoader().disablePlugin(this);
+            return;
         }
         setWorldGuard();
 
