@@ -17,6 +17,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Random;
@@ -40,7 +42,7 @@ public class Death implements Listener {
 
         double basePay = Config.getBasePay(target.getType());
         double permissionMultiplier = getPermissionMultiplier(attacker);
-        double specialMultiplier = getSpecialCaseMultiplier(target);
+        double specialMultiplier = getSpecialCaseMultiplier(target, attacker);
         double randomizer = Config.getRandomizer();
         double diminishedMultiplier = DiminishingReturns.getMultiplier(attacker, target);
         double randomMultiplier = r.nextDouble()*2*randomizer + 1 - randomizer;
@@ -81,7 +83,7 @@ public class Death implements Listener {
         }
         return 1.0;
     }
-    private double getSpecialCaseMultiplier(Entity entity){
+    private double getSpecialCaseMultiplier(Entity entity, HumanEntity attacker){
         double multi = 1.0;
         if(entity instanceof Zombie && ((Zombie)entity).isBaby()){
             multi *= Config.getSpecialCaseMultiplier("baby");
@@ -95,6 +97,9 @@ public class Death implements Listener {
         if(inNoPay(entity.getLocation())){
             multi *= 0.0;
         }
+        if(holdingAmuletCoin(attacker)){
+            multi *= 2.0;
+        }
         return multi;
     }
     private boolean inNoPay(Location location){
@@ -107,5 +112,18 @@ public class Death implements Listener {
             }
         }
         return false;
+    }
+    private boolean holdingAmuletCoin(HumanEntity attacker){
+        return isAmuletCoin( attacker.getInventory().getItemInMainHand() ) ||
+               isAmuletCoin( attacker.getInventory().getItemInOffHand()  );
+    }
+    private boolean isAmuletCoin(ItemStack item){
+        if (!item.hasItemMeta())return false;
+        ItemMeta itemmeta = item.getItemMeta();
+        assert(itemmeta != null);
+        if (!itemmeta.hasDisplayName())return false;
+        if (!itemmeta.getDisplayName().equals(ChatColor.COLOR_CHAR+"eAmulet Coin"))return false;
+        if (itemmeta.getLore() == null)return false;
+        return (itemmeta.getLore().get(0).contains(ChatColor.COLOR_CHAR+"7"));
     }
 }
